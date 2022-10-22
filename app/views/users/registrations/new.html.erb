@@ -1,0 +1,37 @@
+<h2 class="signup_logo">アカウント作成</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+<div class="field">
+    <%= f.label :名前, class:"letter_left" %><br />
+    <%= f.text_field :name, autofocus: true, class:"email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メールアドレス, class:"letter_left" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード（6文字以上）, class:"letter_left" %> <br>
+    <div class="hidden">
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %> <br>
+    </div>
+    <%= f.password_field :password, autocomplete: "new-password", class:"email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード確認, class:"letter_left" %> <br>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"email" %>
+  </div>
+
+  <div class="center">
+  <div class="actions">
+    <%= f.submit "アカウント作成", class: "loginsign_button" %>
+  </div>
+<% end %>
+<%= render "users/shared/links" %>
+</div>

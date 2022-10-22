@@ -1,0 +1,22 @@
+<h1>GeekInstagram</h1>
+<h3>新規投稿</h3>
+<%= form_for @insta do |i| %>
+<div class="field">
+    <%= i.label :body, "投稿" %>
+    <%= i.text_field :body, :size => 140 %>
+</div>
+
+<div class="field">
+    <%= i.label :image, "画像" %>
+    <%= i.file_field :image %>
+    <h3>場所投稿フォーム</h3>
+    <p>
+    <%= i.label :address %>
+    <%= i.text_field :address, size: "50x1" %>
+    </p>
+</div>
+<div class="center">
+<%= i.submit "投稿する" %>
+<% end %>
+<%= link_to "投稿一覧に戻る", instagrams_path %>
+</div>

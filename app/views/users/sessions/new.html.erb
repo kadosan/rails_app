@@ -1,0 +1,36 @@
+
+<img src="/assets/icon.png" alt="" class="insta_icon" width="50" height="50">
+
+<h2 class="login_message">インスタグラムにログイン</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <p class="login_letter">
+      メールアドレス
+    </p>
+
+    <%= f.email_field :email, autofocus: false, autocomplete: "email", class:"email"%>
+  </div>
+
+
+  <div class="field">
+    <p class="login_letter">
+      パスワード
+    </p><br>
+    <%= f.password_field :password, autofocus: false, autocomplete: "off", class:"email" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+
+    </div>
+  <% end -%>
+
+  <div class="login_actions">
+    <%= f.submit "ログイン" , class: "loginsign_button" %>
+  </div>
+<% end %>
+
+<div class="under">
+<%= render "users/shared/links"%>
+</div>

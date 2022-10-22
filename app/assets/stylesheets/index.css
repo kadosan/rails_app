@@ -1,0 +1,214 @@
+/* ログインページ */
+
+.insta_icon{
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.login_message{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.field{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mail_field{
+    border: none;
+    border-bottom: 1px solid #00acee;
+}
+
+.login_letter{
+    color: #00acee;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+.login_actions{
+    text-align: center;
+}
+
+.loginsign_button{
+    border: none;
+    border: 1px solid ;
+    width: 70%;
+    height: 40px;
+    border-radius: 100vh;
+    color: aliceblue;
+    background-color: #00acee;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+
+
+.loginsign_button:hover{
+    opacity: 0.7;
+}
+
+.under{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.up{
+    margin-top: 30px;
+    color: #fff;
+}
+
+.email{
+    border: none;
+    background-color: #fff;
+    border-bottom: 1px solid #00acee;
+}
+
+/* アカウント作成ページ */
+.signup_logo{
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.hidden{
+    display: none;
+}
+
+.signup_button{
+    margin-top: 20px;
+}
+
+/* パスワード変更ページ */
+
+.forgot_logo{
+    text-align: center;
+}
+
+.password_button{
+    margin-top: 20px;
+}
+
+.letter_left{
+    text-align: left;
+}
+
+/* indexページ */
+
+
+.header_logo{
+    text-align: center;
+}
+
+.navs{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+
+.center{
+    margin: 0 auto;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.nav-item:not(:first-child){
+    margin-left: 20px;
+}
+
+.nav-item{
+    text-decoration: none;
+    color: black;
+}
+
+.insta_header_sub{
+    margin-top: 30px;
+}
+
+.insta_post{
+    margin-top: 4vh;
+}
+
+
+
+.map_logo{
+    margin-top: 50px;
+}
+
+.time{
+    display: none;
+}
+
+
+
+
+
+/* mypage */
+
+.mypage_photo{
+    width: 15vh;
+    height: 15vh;
+    border-radius: 100vh;
+}
+
+.mypage_name{
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 400px){
+    .show_container{
+        margin-left: 30px;
+    }
+}
+
+.like_logo{
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+.mypage_back{
+    font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+/* showページ */
+.conainer_show{
+    display: block;
+    width: 92%;
+    margin: 0 auto;
+    
+}
+
+.show_sub{
+    margin-top: 20px;
+}
+
+.map_centeer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+
+

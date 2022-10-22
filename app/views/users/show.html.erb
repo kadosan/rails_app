@@ -1,0 +1,50 @@
+<div class="center">
+
+<h1 class="mypage_logo">mypage</h1>
+<%= image_tag @user.image_url, class:'mypage_photo' if @user.image? %> <br>
+<p class="mypage_name">名前 : <%= @user.name %></p>
+<p class="mypage_mail">メールアドレス : <%= @user.email %></p>
+<p class="mypage_profile">プロフィール : <%= @user.profile %></p>
+    
+
+<% if current_user.id == @user.id %>
+<%= link_to "編集する", edit_user_registration_path %>
+<% end %>
+
+<h2 class="post_logo">投稿一覧</h2>
+</div>
+
+<div class="container show_container">
+    <div class="row">
+        <% @user.instagrams.each do |i| %>
+        <div class="col-sm-4">
+            <%= image_tag i.image_url, size: "250x200" if i.image? %> <br>
+            <%= i.user.name %>
+            <%= i.body %>
+        </div>
+        <% end %>
+    </div>
+</div>
+
+<!-- 以下はいいね機能を実装している場合-->
+<h2 class="like_logo center">いいね一覧</h2>
+<div class="container">
+    <div class="row">
+        <% @user.liked_instagrams.each do |i| %>
+        <div class="col-sm-4">
+            <%= i.user.name %> <br>
+            <%= i.body %> <br>
+            <%= image_tag i.image_url, size: "250x200" if i.image? %>
+        </div>
+        <% end %>
+    </div>
+</div>
+<div class="center">
+<%= link_to "投稿一覧に戻る", instagrams_path, class:"mypage_back center" %>
+</div>
+
+
+
+
+
+

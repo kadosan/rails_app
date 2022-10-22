@@ -1,0 +1,185 @@
+<header class="header">
+  <h1 class="header_logo">GeekInstagram</h1>
+
+  <div class="navs">
+  <ul class="nav nav-tabs">
+  <li class="nav-item">
+  <li class="nav-item">
+    <%= link_to "新規投稿へ", new_instagram_path,class:"nav-item" %>
+  <li class="nav-item">
+    <% if user_signed_in? %>
+      <%= link_to "マイページへ", user_path(current_user.id),class:"nav-item" %>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class:"nav-item" %>
+  </li>
+</ul>
+</div>
+
+</header>
+
+<div class="center">
+  <h3>投稿を検索</h3>
+  <%= form_tag({controller:"instagrams",action:"index"}, method: :get) do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag '検索する'  %>
+  <% end %>
+  <h3 class="insta_header_sub">投稿一覧</h3>
+</div>
+
+<div class="container insta_post_container">
+  <div class="row">
+    <% @instas.each do |i| %>
+    <div class="col-sm-3 insta_post">
+    <%= image_tag i.image_url, size: "250x200" if i.image? %> <br>
+    <%= i.user.email %> <br>
+    <%= i.body %> <br>
+    <p>住所 : <%= i.address %></p>
+    <p>緯度 : <%= i.latitude %></p>
+    <p>経度 : <%= i.longitude %></p>
+
+
+  <% if user_signed_in? %>
+      <% if current_user.already_liked?(i) %>
+        <%= link_to instagram_like_path(id: i.id, instagram_id: i.id), method: :delete do %>
+        <i class="fas fa-heart"></i><%= i.likes.count %>
+      <% end %>
+        <% else %>
+          <%= link_to instagram_likes_path(id: i.id, instagram_id: i.id), method: :post do %>
+          <i class="far fa-heart"></i><%= i.likes.count %>
+        <% end %>
+        <% end %>
+      <% else %>
+        <i class="far fa-heart"></i><%= t.likes.count %>
+  <% end %>
+
+
+      <div class="time"><%= i.created_at %></div>
+      <%= link_to "詳細へ", instagram_path(i.id) %>
+      <% if user_signed_in? && current_user.id == i.user_id %>
+        <%= link_to "編集する", edit_instagram_path(i.id) %>
+        <%= link_to "削除する", instagram_path(i.id), method: :delete %>
+      <% end %> 
+
+      <% if user_signed_in? %>
+    <%= form_with(model: [i, @comment], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
+
+      
+    </div>
+  <% end %>
+  </div>
+</div>
+
+
+
+<div class="center map_up">
+<h2 class="map_logo">google map</h2>
+
+<input id="address" type="textbox" value="">
+<input type="button" value="地図を検索" onclick="codeAddress()">
+<div id="display">緯度経度が表示されるよ！</div>
+
+<div id='map'></div>
+
+<div class="map_center">
+
+<style>
+    #map {
+        height: 50vh;
+        width: 50vh;
+        margin-left: 20px
+        
+    }
+</style>
+
+<script>
+    let map
+
+    const display = document.getElementById('display')
+
+    // mapの表示関数 
+    function initMap() {
+        geocoder = new google.maps.Geocoder()
+
+        // mapの初期位置, 縮尺を定義
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+                lat: 35.6458437,
+                lng: 139.7046171
+            },
+            zoom: 12,
+        });
+
+        // mapsテーブルにあるそれぞれのレコードをmap上に表示 
+        <% @instas.each do |m| %>
+            (function(){
+            var contentString = "住所：<%= m.address %>"; 
+
+            // マーカーを立てる
+            var marker = new google.maps.Marker({
+                position:{lat: <%= m.latitude %>, lng: <%= m.longitude %>},
+                map: map,
+                title: contentString
+            });
+
+            // 情報ウィンドウ(吹き出し)の定義
+            // 投稿の詳細ページへのリンクも
+            var infowindow = new google.maps.InfoWindow({
+            position: {lat: <%= m.latitude %>, lng: <%= m.longitude %>},
+            content: "<a href='<%= instagram_url(m.id) %>' target='_blank'><%= m.address %></a>"
+            });
+
+            // クリックしたときに情報ウィンドウを表示
+            marker.addListener('click', function() {
+            infowindow.open(map, marker);
+            });
+
+            })();
+        <% end %>
+    }
+
+    let geocoder
+
+    // 地図検索関数
+    function codeAddress() {
+        let inputAddress = document.getElementById('address').value;
+
+        geocoder.geocode({
+            'address': inputAddress
+        }, function (results, status) {
+            if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+
+            display.textContent = "検索結果：" + results[ 0 ].geometry.location
+            } else {
+                alert('該当する結果がありませんでした：' + status);
+            }
+        });
+    }
+</script>
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap"  
+    async defer>
+</script>
+</div>
+
+
+
+
+
+<footer class="footer">
+
+</footer>
+
